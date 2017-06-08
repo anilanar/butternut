@@ -67,9 +67,7 @@ export default class ArrowFunctionExpression extends Node {
 					code.overwrite( this.params[0].end, this.body.start, '=>' );
 				}
 			} else {
-				if ( this.params[0].start > c + 1 ) {
-					code.remove( c + 1, this.params[0].start );
-				}
+				code.overwrite( c, this.params[0].start, '(' );
 
 				if ( this.body.start > this.params[0].end + 3 ) {
 					code.overwrite( this.params[0].end, this.body.start, ')=>' );

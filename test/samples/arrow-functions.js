@@ -19,6 +19,12 @@ module.exports = [
 
 	{
 		description: 'preserves parens if single param is not identifier',
+		input: `var x = ([ y ]) => y + 1`,
+		output: `var x=([a])=>a+1`
+	},
+
+	{
+		description: 'removes whitespace around parens with single param that is not identifier',
 		input: `var x = ( [ y ] ) => y + 1`,
 		output: `var x=([a])=>a+1`
 	},
@@ -45,6 +51,18 @@ module.exports = [
 		description: 'async arrow function with multiple params',
 		input: `var x = async ( a, b, c ) => a + b + c`,
 		output: `var x=async(a,b,c)=>a+b+c`
+	},
+
+	{
+		description: 'async arrow function preserves parens if single param is not identifier',
+		input: `var x = async([ y ]) => y + 1`,
+		output: `var x=async([a])=>a+1`
+	},
+
+	{
+		description: 'async arrow function removes whitespace around parens when single params that is not identifier',
+		input: `var x = async ( [ y ] ) => y + 1`,
+		output: `var x=async([a])=>a+1`
 	},
 
 	{
