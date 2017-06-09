@@ -24,8 +24,16 @@ export default class NewExpression extends Node {
 			if ( this.end > lastNode.end + 1 ) code.overwrite( lastNode.end, this.end, ')' );
 		}
 
-		else if ( this.end > this.callee.end ) {
-			code.remove( this.callee.end, this.end );
+		else {
+			const isMemberExpr = this.parent.type === 'MemberExpression' && this.parent.object === this;
+			if ( isMemberExpr ) {
+				code.prependLeft( this.start, '(' );
+				code.appendRight( this.end, ')' );
+			}
+
+			if ( this.end > this.callee.end ) {
+				code.remove( this.callee.end, this.end );
+			}
 		}
 
 		super.minify( code, chars );
